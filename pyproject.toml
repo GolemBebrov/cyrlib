@@ -1,0 +1,47 @@
+[build-system]
+requires = [
+    "setuptools",
+    "cython",
+    "numpy",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nv-raylib"
+version = "0.0.1.dev1"
+authors = [
+  { name="GolemNikidastrov", email="bebrovgolem@gmail.com" },
+]
+
+keywords = [
+    "performance",
+    "cython",
+    "raylib",
+    "pyray",
+]
+
+description = "Raylib bindings for Python(Based on pyray)"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Cython",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Multimedia :: Graphics",
+    "Intended Audience :: Developers",
+]
+dependencies = [
+    "numpy",
+    "raylib",
+]
+
+[project.urls]
+Homepage = "https://github.com/GolemBebrov/nv-raylib"
+Repository = "https://github.com/GolemBebrov/nv-raylib"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"nv_raylib" = ["*.pyx"]
