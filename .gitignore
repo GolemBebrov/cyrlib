@@ -1,7 +1,9 @@
-*.c
-*.cpp
 *.html
 *.pyd
+src/**/*.cpp
+src/**/*.c
+src/**/*.so
+src/**/*.h
 __pycache__
 build
 *.egg-info
