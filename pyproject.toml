@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cyrlib"
-version = "0.0.1.post2"
+version = "0.0.1.post3"
 authors = [
   { name="GolemNikidastrov", email="bebrovgolem@gmail.com" },
 ]
@@ -44,3 +44,6 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "cyrlib" = ["*.pyx"]
+
+[tool.cibuildwheel.linux]
+environment = { LD_LIBRARY_PATH = "/project/deps/libs/linux:$LD_LIBRARY_PATH" }

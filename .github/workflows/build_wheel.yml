@@ -29,6 +29,9 @@ jobs:
       - name: Install cibuildwheel
         run: python -m pip install cibuildwheel
 
+      - name: Create Raylib symlink for auditwheel
+        run: ln -s libraylib.so deps/libs/linux/libraylib.so.600
+
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
