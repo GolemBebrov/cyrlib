@@ -6,7 +6,7 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "nv-raylib"
+name = "cyrlib"
 version = "0.0.1.dev1"
 authors = [
   { name="GolemNikidastrov", email="bebrovgolem@gmail.com" },
@@ -43,4 +43,4 @@ Repository = "https://github.com/GolemBebrov/nv-raylib"
 where = ["src"]
 
 [tool.setuptools.package-data]
-"nv_raylib" = ["*.pyx"]
+"cyrlib" = ["*.pyx"]
