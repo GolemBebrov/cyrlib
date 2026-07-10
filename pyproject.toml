@@ -36,8 +36,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/GolemBebrov/nv-raylib"
-Repository = "https://github.com/GolemBebrov/nv-raylib"
+Homepage = "https://github.com/GolemBebrov/cyrlib"
+Repository = "https://github.com/GolemBebrov/cyrlib"
 
 [tool.setuptools.packages.find]
 where = ["src"]
