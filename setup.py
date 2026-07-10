@@ -77,7 +77,7 @@ def get_extension(name: str, source: str) -> Extension:
 
 
 def get_extensions():
-    pyx_files = glob.glob("src/nv_raylib/**/*.pyx", recursive=True)
+    pyx_files = glob.glob("src/cyrlib/**/*.pyx", recursive=True)
 
     extensions = []
     for pyx in pyx_files:
