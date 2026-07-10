@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cyrlib"
-version = "0.0.1.post4"
+version = "0.0.1.post5"
 authors = [
   { name="GolemNikidastrov", email="bebrovgolem@gmail.com" },
 ]
@@ -47,17 +47,30 @@ where = ["src"]
 
 [tool.cibuildwheel.linux]
 before-all = """
+COMPILE=0
 if command -v dnf > /dev/null; then
-  dnf install -y alsa-lib-devel mesa-libGL-devel libX11-devel libXrandr-devel libXi-devel libXcursor-devel libXinerama-devel
+  if [ ! -f "/project/deps/libs/linux/.manylinux_done" ]; then
+    dnf install -y alsa-lib-devel mesa-libGL-devel libX11-devel libXrandr-devel libXi-devel libXcursor-devel libXinerama-devel && \
+    COMPILE=1
+  fi
 elif command -v apk > /dev/null; then
-  apk add --no-cache alsa-lib-dev mesa-dev libx11-dev libxrandr-dev libxi-dev libxcursor-dev libxinerama-dev build-base git
-fi && \
-git clone --depth 1 -b 6.0 https://github.com/raysan5/raylib.git /tmp/raylib && \
-cd /tmp/raylib/src && \
-make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED && \
-mkdir -p /project/deps/libs/linux && \
-mkdir -p /project/deps/include && \
-cp -P libraylib.so* /project/deps/libs/linux/ && \
-cp raylib.h raymath.h rlgl.h /project/deps/include/
+  if [ ! -f "/project/deps/libs/linux/.musllinux_done" ]; then
+    apk add --no-cache alsa-lib-dev mesa-dev libx11-dev libxrandr-dev libxi-dev libxcursor-dev libxinerama-dev build-base git && \
+    COMPILE=1
+  fi
+fi
+
+if [ "$COMPILE" = "1" ]; then
+  git clone --depth 1 -b 6.0 https://github.com/raysan5/raylib.git /tmp/raylib && \
+  cd /tmp/raylib/src && \
+  make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED && \
+  mkdir -p /project/deps/libs/linux && \
+  mkdir -p /project/deps/include && \
+  cp -P libraylib.so* /project/deps/libs/linux/ && \
+  cp raylib.h raymath.h rlgl.h /project/deps/include/ && \
+  if command -v dnf > /dev/null; then touch /project/deps/libs/linux/.manylinux_done; else touch /project/deps/libs/linux/.musllinux_done; fi
+else
+  echo "Raylib already compiled for this platform, skipping build!"
+fi
 """
 environment = { LD_LIBRARY_PATH = "/project/deps/libs/linux:$LD_LIBRARY_PATH" }
