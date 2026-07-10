@@ -1,4 +1,4 @@
-from nv_raylib.raylib.raylib cimport Color as RlColor
+from cyrlib.raylib.raylib cimport Color as RlColor
 cdef class Color:
     def __init__(self, int r, int g, int b, int a = 255):
         cdef RlColor raw

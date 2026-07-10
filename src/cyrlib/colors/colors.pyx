@@ -1,4 +1,4 @@
-from nv_raylib.color.color cimport Color
+from cyrlib.color.color cimport Color
 
 cdef class Colors:
     def __init__(self):

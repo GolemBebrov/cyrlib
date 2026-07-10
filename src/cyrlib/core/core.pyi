@@ -2,11 +2,10 @@
 
 from contextlib import contextmanager
 
-from nv_raylib.vector2.vector2 import Vector2
-
+from cyrlib.vector2.vector2 import Vector2
 
 class Window:
-    def __init__(self, width: int, height: int, title: str, flags: int=0): ...
+    def __init__(self, width: int, height: int, title: str, flags: int = 0): ...
     @contextmanager
     def drawing(self): ...
     @property

@@ -71,6 +71,8 @@ class Function:
         self.desc = description
         self.params = params
         self.return_type = returnType
+        if self.return_type in to_correct_type:
+            self.return_type = to_correct_type[self.return_type]
         if params:
             for i in range(len(params)):
                 self.params[i] = BaseItem(**self.params[i])

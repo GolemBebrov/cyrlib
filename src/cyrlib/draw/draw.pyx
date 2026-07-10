@@ -1,6 +1,6 @@
-from nv_raylib.raylib.raylib cimport DrawFPS, ClearBackground
-from nv_raylib.color.color cimport Color
-from nv_raylib.vector2.vector2 cimport Vector2
+from cyrlib.raylib.raylib cimport DrawFPS, ClearBackground
+from cyrlib.color.color cimport Color
+from cyrlib.vector2.vector2 cimport Vector2
 cdef class draw:
 
     @staticmethod

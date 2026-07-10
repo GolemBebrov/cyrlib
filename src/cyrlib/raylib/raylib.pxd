@@ -263,9 +263,9 @@ cdef extern from "raylib.h" nogil:
 
     ctypedef void(*TraceLogCallback)(int logLevel, const char * text, va_list args)
     ctypedef unsigned char *(*LoadFileDataCallback)(const char * fileName, int * dataSize)
-    ctypedef bool(*SaveFileDataCallback)(const char * fileName, const void * data, int dataSize)
+    ctypedef bint(*SaveFileDataCallback)(const char * fileName, const void * data, int dataSize)
     ctypedef char *(*LoadFileTextCallback)(const char * fileName)
-    ctypedef bool(*SaveFileTextCallback)(const char * fileName, const char * text)
+    ctypedef bint(*SaveFileTextCallback)(const char * fileName, const char * text)
     ctypedef void(*AudioCallback)(void * bufferData, unsigned int frames)
 
     # === Functions ===
@@ -277,31 +277,31 @@ cdef extern from "raylib.h" nogil:
     void CloseWindow()
 
     #Info: Check if application should close (KEY_ESCAPE pressed or windows close icon clicked)
-    bool WindowShouldClose()
+    bint WindowShouldClose()
 
     #Info: Check if window has been initialized successfully
-    bool IsWindowReady()
+    bint IsWindowReady()
 
     #Info: Check if window is currently fullscreen
-    bool IsWindowFullscreen()
+    bint IsWindowFullscreen()
 
     #Info: Check if window is currently hidden
-    bool IsWindowHidden()
+    bint IsWindowHidden()
 
     #Info: Check if window is currently minimized
-    bool IsWindowMinimized()
+    bint IsWindowMinimized()
 
     #Info: Check if window is currently maximized
-    bool IsWindowMaximized()
+    bint IsWindowMaximized()
 
     #Info: Check if window is currently focused
-    bool IsWindowFocused()
+    bint IsWindowFocused()
 
     #Info: Check if window has been resized last frame
-    bool IsWindowResized()
+    bint IsWindowResized()
 
     #Info: Check if one specific window flag is enabled
-    bool IsWindowState(unsigned int flag)
+    bint IsWindowState(unsigned int flag)
 
     #Info: Set window configuration state using flags
     void SetWindowState(unsigned int flags)
@@ -424,7 +424,7 @@ cdef extern from "raylib.h" nogil:
     void HideCursor()
 
     #Info: Check if cursor is not visible
-    bool IsCursorHidden()
+    bint IsCursorHidden()
 
     #Info: Enable cursor (unlock cursor)
     void EnableCursor()
@@ -433,7 +433,7 @@ cdef extern from "raylib.h" nogil:
     void DisableCursor()
 
     #Info: Check if cursor is on the screen
-    bool IsCursorOnScreen()
+    bint IsCursorOnScreen()
 
     #Info: Clear background (framebuffer) to color
     void ClearBackground(Color color)
@@ -499,7 +499,7 @@ cdef extern from "raylib.h" nogil:
     Shader LoadShaderFromMemory(const char * vsCode, const char * fsCode)
 
     #Info: Check if shader is valid (loaded on GPU)
-    bool IsShaderValid(Shader shader)
+    bint IsShaderValid(Shader shader)
 
     #Info: Get shader uniform location
     int GetShaderLocation(Shader shader, const char * uniformName)
@@ -613,10 +613,10 @@ cdef extern from "raylib.h" nogil:
     void UnloadFileData(unsigned char * data)
 
     #Info: Save data to file from byte array (write), returns true on success
-    bool SaveFileData(const char * fileName, const void * data, int dataSize)
+    bint SaveFileData(const char * fileName, const void * data, int dataSize)
 
     #Info: Export data to code (.h), returns true on success
-    bool ExportDataAsCode(const unsigned char * data, int dataSize, const char * fileName)
+    bint ExportDataAsCode(const unsigned char * data, int dataSize, const char * fileName)
 
     #Info: Load text data from file (read), returns a '\0' terminated string
     char * LoadFileText(const char * fileName)
@@ -625,7 +625,7 @@ cdef extern from "raylib.h" nogil:
     void UnloadFileText(char * text)
 
     #Info: Save text data to file (write), string must be '\0' terminated, returns true on success
-    bool SaveFileText(const char * fileName, const char * text)
+    bint SaveFileText(const char * fileName, const char * text)
 
     #Info: Set custom file binary data loader
     void SetLoadFileDataCallback(LoadFileDataCallback callback)
@@ -658,13 +658,13 @@ cdef extern from "raylib.h" nogil:
     int FileTextFindIndex(const char * fileName, const char * search)
 
     #Info: Check if file exists
-    bool FileExists(const char * fileName)
+    bint FileExists(const char * fileName)
 
     #Info: Check if directory path exists
-    bool DirectoryExists(const char * dirPath)
+    bint DirectoryExists(const char * dirPath)
 
     #Info: Check file extension (recommended include point: .png, .wav)
-    bool IsFileExtension(const char * fileName, const char * ext)
+    bint IsFileExtension(const char * fileName, const char * ext)
 
     #Info: Get file length in bytes (NOTE: GetFileSize() conflicts with windows.h)
     int GetFileLength(const char * fileName)
@@ -700,13 +700,13 @@ cdef extern from "raylib.h" nogil:
     int ChangeDirectory(const char * dirPath)
 
     #Info: Check if given path points to a file
-    bool IsPathFile(const char * path)
+    bint IsPathFile(const char * path)
 
     #Info: Check if given path points to a directory
-    bool IsPathDirectory(const char * path)
+    bint IsPathDirectory(const char * path)
 
     #Info: Check if fileName is valid for the platform/OS
-    bool IsFileNameValid(const char * fileName)
+    bint IsFileNameValid(const char * fileName)
 
     #Info: Load directory filepaths, files and directories, no subdirs scan
     FilePathList LoadDirectoryFiles(const char * dirPath)
@@ -718,7 +718,7 @@ cdef extern from "raylib.h" nogil:
     void UnloadDirectoryFiles(FilePathList files)
 
     #Info: Check if file has been dropped into window
-    bool IsFileDropped()
+    bint IsFileDropped()
 
     #Info: Load dropped filepaths
     FilePathList LoadDroppedFiles()
@@ -763,7 +763,7 @@ cdef extern from "raylib.h" nogil:
     void UnloadAutomationEventList(AutomationEventList list)
 
     #Info: Export automation events list as text file
-    bool ExportAutomationEventList(AutomationEventList list, const char * fileName)
+    bint ExportAutomationEventList(AutomationEventList list, const char * fileName)
 
     #Info: Set automation event list to record to
     void SetAutomationEventList(AutomationEventList * list)
@@ -781,19 +781,19 @@ cdef extern from "raylib.h" nogil:
     void PlayAutomationEvent(AutomationEvent event)
 
     #Info: Check if key has been pressed once
-    bool IsKeyPressed(int key)
+    bint IsKeyPressed(int key)
 
     #Info: Check if key has been pressed again
-    bool IsKeyPressedRepeat(int key)
+    bint IsKeyPressedRepeat(int key)
 
     #Info: Check if key is being pressed
-    bool IsKeyDown(int key)
+    bint IsKeyDown(int key)
 
     #Info: Check if key has been released once
-    bool IsKeyReleased(int key)
+    bint IsKeyReleased(int key)
 
     #Info: Check if key is NOT being pressed
-    bool IsKeyUp(int key)
+    bint IsKeyUp(int key)
 
     #Info: Get key pressed (keycode), call it multiple times for keys queued, returns 0 when the queue is empty
     int GetKeyPressed()
@@ -808,22 +808,22 @@ cdef extern from "raylib.h" nogil:
     void SetExitKey(int key)
 
     #Info: Check if gamepad is available
-    bool IsGamepadAvailable(int gamepad)
+    bint IsGamepadAvailable(int gamepad)
 
     #Info: Get gamepad internal name id
     const char * GetGamepadName(int gamepad)
 
     #Info: Check if gamepad button has been pressed once
-    bool IsGamepadButtonPressed(int gamepad, int button)
+    bint IsGamepadButtonPressed(int gamepad, int button)
 
     #Info: Check if gamepad button is being pressed
-    bool IsGamepadButtonDown(int gamepad, int button)
+    bint IsGamepadButtonDown(int gamepad, int button)
 
     #Info: Check if gamepad button has been released once
-    bool IsGamepadButtonReleased(int gamepad, int button)
+    bint IsGamepadButtonReleased(int gamepad, int button)
 
     #Info: Check if gamepad button is NOT being pressed
-    bool IsGamepadButtonUp(int gamepad, int button)
+    bint IsGamepadButtonUp(int gamepad, int button)
 
     #Info: Get the last gamepad button pressed
     int GetGamepadButtonPressed()
@@ -841,16 +841,16 @@ cdef extern from "raylib.h" nogil:
     void SetGamepadVibration(int gamepad, float leftMotor, float rightMotor, float duration)
 
     #Info: Check if mouse button has been pressed once
-    bool IsMouseButtonPressed(int button)
+    bint IsMouseButtonPressed(int button)
 
     #Info: Check if mouse button is being pressed
-    bool IsMouseButtonDown(int button)
+    bint IsMouseButtonDown(int button)
 
     #Info: Check if mouse button has been released once
-    bool IsMouseButtonReleased(int button)
+    bint IsMouseButtonReleased(int button)
 
     #Info: Check if mouse button is NOT being pressed
-    bool IsMouseButtonUp(int button)
+    bint IsMouseButtonUp(int button)
 
     #Info: Get mouse position X
     int GetMouseX()
@@ -901,7 +901,7 @@ cdef extern from "raylib.h" nogil:
     void SetGesturesEnabled(unsigned int flags)
 
     #Info: Check if gesture has been detected
-    bool IsGestureDetected(unsigned int gesture)
+    bint IsGestureDetected(unsigned int gesture)
 
     #Info: Get latest detected gesture
     int GetGestureDetected()
@@ -1108,34 +1108,34 @@ cdef extern from "raylib.h" nogil:
     Vector2 GetSplinePointBezierCubic(Vector2 p1, Vector2 c2, Vector2 c3, Vector2 p4, float t)
 
     #Info: Check collision between two rectangles
-    bool CheckCollisionRecs(Rectangle rec1, Rectangle rec2)
+    bint CheckCollisionRecs(Rectangle rec1, Rectangle rec2)
 
     #Info: Check collision between two circles
-    bool CheckCollisionCircles(Vector2 center1, float radius1, Vector2 center2, float radius2)
+    bint CheckCollisionCircles(Vector2 center1, float radius1, Vector2 center2, float radius2)
 
     #Info: Check collision between circle and rectangle
-    bool CheckCollisionCircleRec(Vector2 center, float radius, Rectangle rec)
+    bint CheckCollisionCircleRec(Vector2 center, float radius, Rectangle rec)
 
     #Info: Check if circle collides with a line created between two points [p1] and [p2]
-    bool CheckCollisionCircleLine(Vector2 center, float radius, Vector2 p1, Vector2 p2)
+    bint CheckCollisionCircleLine(Vector2 center, float radius, Vector2 p1, Vector2 p2)
 
     #Info: Check if point is inside rectangle
-    bool CheckCollisionPointRec(Vector2 point, Rectangle rec)
+    bint CheckCollisionPointRec(Vector2 point, Rectangle rec)
 
     #Info: Check if point is inside circle
-    bool CheckCollisionPointCircle(Vector2 point, Vector2 center, float radius)
+    bint CheckCollisionPointCircle(Vector2 point, Vector2 center, float radius)
 
     #Info: Check if point is inside a triangle
-    bool CheckCollisionPointTriangle(Vector2 point, Vector2 p1, Vector2 p2, Vector2 p3)
+    bint CheckCollisionPointTriangle(Vector2 point, Vector2 p1, Vector2 p2, Vector2 p3)
 
     #Info: Check if point belongs to line created between two points [p1] and [p2] with defined margin in pixels [threshold]
-    bool CheckCollisionPointLine(Vector2 point, Vector2 p1, Vector2 p2, int threshold)
+    bint CheckCollisionPointLine(Vector2 point, Vector2 p1, Vector2 p2, int threshold)
 
     #Info: Check if point is within a polygon described by array of vertices
-    bool CheckCollisionPointPoly(Vector2 point, const Vector2 * points, int pointCount)
+    bint CheckCollisionPointPoly(Vector2 point, const Vector2 * points, int pointCount)
 
     #Info: Check the collision between two lines defined by two points each, returns collision point by reference
-    bool CheckCollisionLines(Vector2 startPos1, Vector2 endPos1, Vector2 startPos2, Vector2 endPos2, Vector2 * collisionPoint)
+    bint CheckCollisionLines(Vector2 startPos1, Vector2 endPos1, Vector2 startPos2, Vector2 endPos2, Vector2 * collisionPoint)
 
     #Info: Get collision rectangle for two rectangles collision
     Rectangle GetCollisionRec(Rectangle rec1, Rectangle rec2)
@@ -1162,19 +1162,19 @@ cdef extern from "raylib.h" nogil:
     Image LoadImageFromScreen()
 
     #Info: Check if an image is valid (data and parameters)
-    bool IsImageValid(Image image)
+    bint IsImageValid(Image image)
 
     #Info: Unload image from CPU memory (RAM)
     void UnloadImage(Image image)
 
     #Info: Export image data to file, returns true on success
-    bool ExportImage(Image image, const char * fileName)
+    bint ExportImage(Image image, const char * fileName)
 
     #Info: Export image to memory buffer, memory must be MemFree()
     unsigned char * ExportImageToMemory(Image image, const char * fileType, int * fileSize)
 
     #Info: Export image as code file defining an array of bytes, returns true on success
-    bool ExportImageAsCode(Image image, const char * fileName)
+    bint ExportImageAsCode(Image image, const char * fileName)
 
     #Info: Generate image: plain color
     Image GenImageColor(int width, int height, Color color)
@@ -1417,13 +1417,13 @@ cdef extern from "raylib.h" nogil:
     RenderTexture2D LoadRenderTexture(int width, int height)
 
     #Info: Check if texture is valid (loaded in GPU)
-    bool IsTextureValid(Texture2D texture)
+    bint IsTextureValid(Texture2D texture)
 
     #Info: Unload texture from GPU memory (VRAM)
     void UnloadTexture(Texture2D texture)
 
     #Info: Check if render texture is valid (loaded in GPU)
-    bool IsRenderTextureValid(RenderTexture2D target)
+    bint IsRenderTextureValid(RenderTexture2D target)
 
     #Info: Unload render texture from GPU memory (VRAM)
     void UnloadRenderTexture(RenderTexture2D target)
@@ -1462,7 +1462,7 @@ cdef extern from "raylib.h" nogil:
     void DrawTextureNPatch(Texture2D texture, NPatchInfo nPatchInfo, Rectangle dstrec, Vector2 origin, float rotation, Color tint)
 
     #Info: Check if two colors are equal
-    bool ColorIsEqual(Color col1, Color col2)
+    bint ColorIsEqual(Color col1, Color col2)
 
     #Info: Get color with alpha applied, alpha goes from 0.0f to 1.0f
     Color Fade(Color color, float alpha)
@@ -1528,7 +1528,7 @@ cdef extern from "raylib.h" nogil:
     Font LoadFontFromMemory(const char * fileType, const unsigned char * fileData, int dataSize, int fontSize, const int * codepoints, int codepointCount)
 
     #Info: Check if font is valid (font data loaded, WARNING: GPU texture not checked)
-    bool IsFontValid(Font font)
+    bint IsFontValid(Font font)
 
     #Info: Load font data for further use
     GlyphInfo * LoadFontData(const unsigned char * fileData, int dataSize, int fontSize, const int * codepoints, int codepointCount, int type, int * glyphCount)
@@ -1543,7 +1543,7 @@ cdef extern from "raylib.h" nogil:
     void UnloadFont(Font font)
 
     #Info: Export font as code file, returns true on success
-    bool ExportFontAsCode(Font font, const char * fileName)
+    bint ExportFontAsCode(Font font, const char * fileName)
 
     #Info: Draw current FPS
     void DrawFPS(int posX, int posY)
@@ -1621,7 +1621,7 @@ cdef extern from "raylib.h" nogil:
     int TextCopy(char * dst, const char * src)
 
     #Info: Check if two text strings are equal
-    bool TextIsEqual(const char * text1, const char * text2)
+    bint TextIsEqual(const char * text1, const char * text2)
 
     #Info: Get text length, checks for '\0' ending
     unsigned int TextLength(const char * text)
@@ -1759,7 +1759,7 @@ cdef extern from "raylib.h" nogil:
     Model LoadModelFromMesh(Mesh mesh)
 
     #Info: Check if model is valid (loaded in GPU, VAO/VBOs)
-    bool IsModelValid(Model model)
+    bint IsModelValid(Model model)
 
     #Info: Unload model (including meshes) from memory (RAM and/or VRAM)
     void UnloadModel(Model model)
@@ -1813,10 +1813,10 @@ cdef extern from "raylib.h" nogil:
     void GenMeshTangents(Mesh * mesh)
 
     #Info: Export mesh data to file, returns true on success
-    bool ExportMesh(Mesh mesh, const char * fileName)
+    bint ExportMesh(Mesh mesh, const char * fileName)
 
     #Info: Export mesh as code file (.h) defining multiple arrays of vertex attributes
-    bool ExportMeshAsCode(Mesh mesh, const char * fileName)
+    bint ExportMeshAsCode(Mesh mesh, const char * fileName)
 
     #Info: Generate polygonal mesh
     Mesh GenMeshPoly(int sides, float radius)
@@ -1858,7 +1858,7 @@ cdef extern from "raylib.h" nogil:
     Material LoadMaterialDefault()
 
     #Info: Check if material is valid (shader assigned, map textures loaded in GPU)
-    bool IsMaterialValid(Material material)
+    bint IsMaterialValid(Material material)
 
     #Info: Unload material from GPU memory (VRAM)
     void UnloadMaterial(Material material)
@@ -1882,16 +1882,16 @@ cdef extern from "raylib.h" nogil:
     void UnloadModelAnimations(ModelAnimation * animations, int animCount)
 
     #Info: Check model animation skeleton match
-    bool IsModelAnimationValid(Model model, ModelAnimation anim)
+    bint IsModelAnimationValid(Model model, ModelAnimation anim)
 
     #Info: Check collision between two spheres
-    bool CheckCollisionSpheres(Vector3 center1, float radius1, Vector3 center2, float radius2)
+    bint CheckCollisionSpheres(Vector3 center1, float radius1, Vector3 center2, float radius2)
 
     #Info: Check collision between two bounding boxes
-    bool CheckCollisionBoxes(BoundingBox box1, BoundingBox box2)
+    bint CheckCollisionBoxes(BoundingBox box1, BoundingBox box2)
 
     #Info: Check collision between box and sphere
-    bool CheckCollisionBoxSphere(BoundingBox box, Vector3 center, float radius)
+    bint CheckCollisionBoxSphere(BoundingBox box, Vector3 center, float radius)
 
     #Info: Get collision info between ray and sphere
     RayCollision GetRayCollisionSphere(Ray ray, Vector3 center, float radius)
@@ -1915,7 +1915,7 @@ cdef extern from "raylib.h" nogil:
     void CloseAudioDevice()
 
     #Info: Check if audio device has been initialized successfully
-    bool IsAudioDeviceReady()
+    bint IsAudioDeviceReady()
 
     #Info: Set master volume (listener)
     void SetMasterVolume(float volume)
@@ -1930,7 +1930,7 @@ cdef extern from "raylib.h" nogil:
     Wave LoadWaveFromMemory(const char * fileType, const unsigned char * fileData, int dataSize)
 
     #Info: Check if wave data is valid (data loaded and parameters)
-    bool IsWaveValid(Wave wave)
+    bint IsWaveValid(Wave wave)
 
     #Info: Load sound from file
     Sound LoadSound(const char * fileName)
@@ -1942,7 +1942,7 @@ cdef extern from "raylib.h" nogil:
     Sound LoadSoundAlias(Sound source)
 
     #Info: Check if sound is valid (data loaded and buffers initialized)
-    bool IsSoundValid(Sound sound)
+    bint IsSoundValid(Sound sound)
 
     #Info: Update sound buffer with new data (default data format: 32 bit float, stereo)
     void UpdateSound(Sound sound, const void * data, int frameCount)
@@ -1957,10 +1957,10 @@ cdef extern from "raylib.h" nogil:
     void UnloadSoundAlias(Sound alias)
 
     #Info: Export wave data to file, returns true on success
-    bool ExportWave(Wave wave, const char * fileName)
+    bint ExportWave(Wave wave, const char * fileName)
 
     #Info: Export wave sample data to code (.h), returns true on success
-    bool ExportWaveAsCode(Wave wave, const char * fileName)
+    bint ExportWaveAsCode(Wave wave, const char * fileName)
 
     #Info: Play a sound
     void PlaySound(Sound sound)
@@ -1975,7 +1975,7 @@ cdef extern from "raylib.h" nogil:
     void ResumeSound(Sound sound)
 
     #Info: Check if sound is currently playing
-    bool IsSoundPlaying(Sound sound)
+    bint IsSoundPlaying(Sound sound)
 
     #Info: Set volume for a sound (1.0 is max level)
     void SetSoundVolume(Sound sound, float volume)
@@ -2008,7 +2008,7 @@ cdef extern from "raylib.h" nogil:
     Music LoadMusicStreamFromMemory(const char * fileType, const unsigned char * data, int dataSize)
 
     #Info: Check if music stream is valid (context and buffers initialized)
-    bool IsMusicValid(Music music)
+    bint IsMusicValid(Music music)
 
     #Info: Unload music stream
     void UnloadMusicStream(Music music)
@@ -2017,7 +2017,7 @@ cdef extern from "raylib.h" nogil:
     void PlayMusicStream(Music music)
 
     #Info: Check if music is playing
-    bool IsMusicStreamPlaying(Music music)
+    bint IsMusicStreamPlaying(Music music)
 
     #Info: Update buffers for music streaming
     void UpdateMusicStream(Music music)
@@ -2053,7 +2053,7 @@ cdef extern from "raylib.h" nogil:
     AudioStream LoadAudioStream(unsigned int sampleRate, unsigned int sampleSize, unsigned int channels)
 
     #Info: Check if an audio stream is valid (buffers initialized)
-    bool IsAudioStreamValid(AudioStream stream)
+    bint IsAudioStreamValid(AudioStream stream)
 
     #Info: Unload audio stream and free memory
     void UnloadAudioStream(AudioStream stream)
@@ -2062,7 +2062,7 @@ cdef extern from "raylib.h" nogil:
     void UpdateAudioStream(AudioStream stream, const void * data, int frameCount)
 
     #Info: Check if any audio stream buffers requires refill
-    bool IsAudioStreamProcessed(AudioStream stream)
+    bint IsAudioStreamProcessed(AudioStream stream)
 
     #Info: Play audio stream
     void PlayAudioStream(AudioStream stream)
@@ -2074,7 +2074,7 @@ cdef extern from "raylib.h" nogil:
     void ResumeAudioStream(AudioStream stream)
 
     #Info: Check if audio stream is playing
-    bool IsAudioStreamPlaying(AudioStream stream)
+    bint IsAudioStreamPlaying(AudioStream stream)
 
     #Info: Stop audio stream
     void StopAudioStream(AudioStream stream)

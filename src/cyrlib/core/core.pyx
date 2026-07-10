@@ -1,12 +1,12 @@
-from nv_raylib.raylib.raylib cimport (
+from cyrlib.raylib.raylib cimport (
     InitWindow, CloseWindow, SetTargetFPS, GetScreenWidth,
     GetScreenHeight, SetWindowSize, SetWindowTitle, SetConfigFlags,
     SetExitKey, IsWindowState, SetWindowState, ClearWindowState,
     MinimizeWindow, MaximizeWindow, RestoreWindow, ToggleFullscreen,
     BeginDrawing, EndDrawing, WindowShouldClose,
 )
-from nv_raylib.vector2.vector2 cimport Vector2
-from nv_raylib.enums import WindowFlags
+from cyrlib.vector2.vector2 cimport Vector2
+from cyrlib.enums import WindowFlags
 from contextlib import contextmanager
 
 

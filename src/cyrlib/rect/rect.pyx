@@ -1,5 +1,5 @@
-from nv_raylib.vector2.vector2 cimport Vector2
-from nv_raylib.vector4.vector4 cimport Vector4
+from cyrlib.vector2.vector2 cimport Vector2
+from cyrlib.vector4.vector4 cimport Vector4
 
 cdef class Rect:
     @staticmethod

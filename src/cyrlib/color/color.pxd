@@ -1,4 +1,4 @@
-from nv_raylib.raylib.raylib cimport Color as RlColor
+from cyrlib.raylib.raylib cimport Color as RlColor
 
 cdef class Color:
     cdef RlColor _raw

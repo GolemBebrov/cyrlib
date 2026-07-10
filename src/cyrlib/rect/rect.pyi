@@ -2,9 +2,8 @@
 
 import cython
 
-from nv_raylib.vector2.vector2 import Vector2
-from nv_raylib.vector4.vector4 import Vector4
-
+from cyrlib.vector2.vector2 import Vector2
+from cyrlib.vector4.vector4 import Vector4
 
 @cython.final
 class Rect:
