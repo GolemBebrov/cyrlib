@@ -2,7 +2,6 @@ import glob
 import os
 import sys
 
-import numpy
 from Cython.Build import cythonize
 from setuptools import Extension, setup
 
@@ -47,7 +46,7 @@ cython_directives = {
 
 
 def get_extension(name: str, source: str) -> Extension:
-    include_dirs = [numpy.get_include(), "src", RAYLIB_INCLUDE_DIR]
+    include_dirs = ["src", RAYLIB_INCLUDE_DIR]
     library_dirs = []
     libraries = []
     extra_link_args = list(l_opts)
