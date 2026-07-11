@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cyrlib"
-version = "0.0.1.post5"
+version = "0.0.2"
 authors = [
   { name="GolemNikidastrov", email="bebrovgolem@gmail.com" },
 ]
@@ -16,10 +16,9 @@ keywords = [
     "performance",
     "cython",
     "raylib",
-    "pyray",
 ]
 
-description = "Raylib bindings for Python(Based on pyray)"
+description = "Cython Raylib bindings for Python"
 readme = "README.md"
 requires-python = ">=3.12"
 classifiers = [
@@ -30,10 +29,7 @@ classifiers = [
     "Topic :: Multimedia :: Graphics",
     "Intended Audience :: Developers",
 ]
-dependencies = [
-    "numpy",
-    "raylib",
-]
+dependencies = []
 
 [project.urls]
 Homepage = "https://github.com/GolemBebrov/cyrlib"

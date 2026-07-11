@@ -3,7 +3,12 @@ from cyrlib.raylib.raylib cimport (
     GetScreenHeight, SetWindowSize, SetWindowTitle, SetConfigFlags,
     SetExitKey, IsWindowState, SetWindowState, ClearWindowState,
     MinimizeWindow, MaximizeWindow, RestoreWindow, ToggleFullscreen,
-    BeginDrawing, EndDrawing, WindowShouldClose,
+    BeginDrawing, EndDrawing, WindowShouldClose, IsWindowReady,
+    IsWindowFullscreen, IsWindowHidden, IsWindowMinimized, IsWindowMaximized,
+    IsWindowFocused, IsWindowResized, SetWindowPosition, SetWindowMonitor,
+    SetWindowMinSize, SetWindowMaxSize, SetWindowOpacity, SetWindowFocused,
+    GetWindowHandle, GetRenderWidth, GetRenderHeight, GetWindowPosition,
+    GetWindowScaleDPI
 )
 from cyrlib.vector2.vector2 cimport Vector2
 from cyrlib.enums import WindowFlags
@@ -30,38 +35,101 @@ cdef class Window:
         InitWindow(width, height, title.encode('utf-8'))
         self._size = Vector2(width, height)
 
-    @contextmanager
-    def drawing(self):
-        self.begin_drawing()
-        try:
-            yield
-        finally:
-            self.end_drawing()
+    cdef inline bint is_ready(self) noexcept:
+        return IsWindowReady()
 
-    @property
-    def should_close(self):
-        return WindowShouldClose()
+    cdef inline bint is_fullscreen(self) noexcept:
+        return IsWindowFullscreen()
 
-    cpdef void close(self):
-        CloseWindow()
+    cdef inline bint is_hidden(self) noexcept:
+        return IsWindowHidden()
+
+    cdef inline bint is_maximized(self) noexcept:
+        return IsWindowMaximized()
+
+    cdef inline bint is_minimized(self) noexcept:
+        return IsWindowMinimized()
+
+    cdef inline bint is_focused(self) noexcept:
+        return IsWindowFocused()
+
+    cdef inline bint is_resized(self) noexcept:
+        return IsWindowResized()
+
+    # TODO: Image cdef class
+    #cdef inline void set_icon(self, Image image) noexcept:
+    #    SetWindowIcon(image)
+    #cdef inline void set_icons(self, Image * images, int count) noexcept:
+    #    SetWindowIcons(images, count)
+
+    cdef inline void set_title(self, str title) noexcept:
+        SetWindowTitle(title.encode('utf-8'))
+
+    cdef inline void set_position(self, int x, int y) noexcept:
+        SetWindowPosition(x, y)
+
+    cdef inline void set_monitor(self, int monitor) noexcept:
+        SetWindowMonitor(monitor)
+
+    cdef inline void set_minsize(self, int width, int height) noexcept:
+        SetWindowMinSize(width, height)
+
+    cdef inline void set_maxsize(self, int width, int height) noexcept:
+        SetWindowMaxSize(width, height)
+
+    cdef inline void set_size(self, int width, int height) noexcept:
+        SetWindowSize(width, height)
+
+    cdef inline void set_width(self, int width) noexcept:
+        SetWindowSize(width, self.get_height())
+
+    cdef inline void set_height(self, int height) noexcept:
+        SetWindowSize(self.get_width(), height)
+
+    cdef inline void set_opacity(self, double opacity) noexcept:
+        SetWindowOpacity(opacity)
+
+    cdef inline void set_focused(self) noexcept:
+        SetWindowFocused()
+
+    cdef inline void * get_handle(self) noexcept:
+        return GetWindowHandle()
 
     cdef inline int get_width(self) noexcept:
         return GetScreenWidth()
 
-    cdef inline void set_width(self, int value) noexcept:
-        SetWindowSize(value, GetScreenHeight())
-
     cdef inline int get_height(self) noexcept:
         return GetScreenHeight()
 
-    cdef inline void set_height(self, int value) noexcept:
-        SetWindowSize(GetScreenWidth(), value)
+    cdef inline int get_render_width(self) noexcept:
+        return GetRenderWidth()
 
-    cpdef void begin_drawing(self) noexcept:
+    cdef inline int get_render_height(self) noexcept:
+        return GetRenderHeight()
+
+    cdef inline Vector2 get_position(self) noexcept:
+        return Vector2.cfrom_struct(GetWindowPosition())
+
+    cdef inline Vector2 get_DPI_scale(self) noexcept:
+        return Vector2.cfrom_struct(GetWindowScaleDPI())
+
+    cdef inline void begin_drawing(self) noexcept:
         BeginDrawing()
 
-    cpdef void end_drawing(self) noexcept:
+    cdef inline void end_drawing(self) noexcept:
         EndDrawing()
+
+    cpdef bint is_state(self, int flag):
+        return IsWindowState(flag)
+
+    cpdef void set_state(self, int flags):
+        SetWindowState(<unsigned int>flags)
+
+    cpdef void clear_state(self, int flags):
+        ClearWindowState(<unsigned int>flags)
+
+    cpdef void close(self):
+        CloseWindow()
 
     @property
     def width(self) -> int:
@@ -79,10 +147,6 @@ cdef class Window:
     def height(self, value):
         self.set_height(value)
 
-    cdef inline void set_title(self, str value) noexcept:
-        self._title = value
-        SetWindowTitle(value.encode('utf-8'))
-
     @property
     def title(self) -> str:
         return self._title
@@ -90,6 +154,7 @@ cdef class Window:
     @title.setter
     def title(self, value):
         self.set_title(value)
+        self._title = value
 
     @property
     def size(self) -> Vector2:
@@ -132,14 +197,14 @@ cdef class Window:
         else:
             RestoreWindow()
 
-    cpdef bint is_fullscreen(self):
-        return self.is_state(WindowFlags.Fullscreen)
+    @contextmanager
+    def drawing(self):
+        self.begin_drawing()
+        try:
+            yield
+        finally:
+            self.end_drawing()
 
-    cpdef bint is_maximized(self):
-        return self.is_state(WindowFlags.Maximized)
-
-    cpdef bint is_minimized(self):
-        return self.is_state(WindowFlags.Minimized)
-
-    cpdef bint is_state(self, int state):
-        return IsWindowState(state)
+    @property
+    def should_close(self) -> bint:
+        return WindowShouldClose()

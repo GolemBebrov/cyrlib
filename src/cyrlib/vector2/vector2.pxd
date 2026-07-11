@@ -1,9 +1,6 @@
 from libc.math cimport sqrt
 cimport cython
-
-ctypedef struct vector2_t:
-    double x
-    double y
+from cyrlib.raylib.raylib cimport Vector2 as vector2_t
 
 cdef inline vector2_t vector2_new(double x, double y) noexcept nogil:
     cdef vector2_t v
@@ -79,6 +76,9 @@ cdef class Vector2:
 
     @staticmethod
     cdef inline Vector2 new(double x, double y)
+
+    @staticmethod
+    cdef inline Vector2 cfrom_struct(vector2_t other)
 
     @staticmethod
     cdef inline Vector2 cfrom_list(list other)

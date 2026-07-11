@@ -1,10 +1,6 @@
 from libc.math cimport sqrt
 cimport cython
-
-ctypedef struct vector3_t:
-    double x
-    double y
-    double z
+from cyrlib.raylib.raylib cimport Vector3 as vector3_t
 
 cdef inline vector3_t vector3_new(double x, double y, double z) noexcept nogil:
     cdef vector3_t v

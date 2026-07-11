@@ -60,6 +60,10 @@ cdef class Vector2:
         return Vector2.new(other.data.x, other.data.y)
 
     @staticmethod
+    cdef inline Vector2 cfrom_struct(vector2_t other):
+        return Vector2.new(other.x, other.y)
+
+    @staticmethod
     cdef inline Vector2 cfrom_tuple(tuple other):
         cdef double x, y
         x = <double><object>PyTuple_GET_ITEM(other, 0)
