@@ -37,7 +37,7 @@ cdef class Cursor:
 
     @property
     def on_screen(self) -> bool:
-        IsCursorOnScreen()
+        return IsCursorOnScreen()
 
     @property
     def enabled(self) -> bool:

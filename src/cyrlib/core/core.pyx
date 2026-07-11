@@ -16,14 +16,16 @@ from contextlib import contextmanager
 
 
 cdef class Window:
-    cdef Vector2 _size
+    cdef Vector2 _size, _min_size, _max_size
     cdef str _title
     cdef int _flags
+    cdef double _opacity
 
     def __cinit__(self, *args, **kwargs):
         self._size = Vector2(0, 0)
         self._title = ""
         self._flags = 0
+        self._opacity = 1.0
 
     def __init__(self, int width, int height, str title, int flags = 0):
         self._flags = flags
@@ -34,6 +36,8 @@ cdef class Window:
 
         InitWindow(width, height, title.encode('utf-8'))
         self._size = Vector2(width, height)
+        self._min_size = self._size.xy
+        self._max_size = self._size.xy
 
     cdef inline bint is_ready(self) noexcept:
         return IsWindowReady()
@@ -131,6 +135,17 @@ cdef class Window:
     cpdef void close(self):
         CloseWindow()
 
+    cpdef void focus(self):
+        self.set_focused()
+
+    @property
+    def opacity(self) -> double:
+        return self._opacity
+
+    @opacity.setter
+    def opacity(self, double value):
+        self.set_opacity(value)
+
     @property
     def width(self) -> int:
         return self.get_width()
@@ -167,6 +182,24 @@ cdef class Window:
         SetWindowSize(int(value.x), int(value.y))
 
     @property
+    def max_size(self) -> Vector2:
+        return self._max_size
+
+    @max_size.setter
+    def max_size(self, Vector2 size):
+        self._max_size = size.xy
+        self.set_maxsize(size.x, size.y)
+
+    @property
+    def min_size(self) -> Vector2:
+        return self._min_size.xy
+
+    @min_size.setter
+    def min_size(self, Vector2 size):
+        self._min_size = size.xy
+        self.set_minsize(size.x, size.y)
+
+    @property
     def fullscreen(self) -> bool:
         return self.is_fullscreen()
 
@@ -196,14 +229,6 @@ cdef class Window:
             MinimizeWindow()
         else:
             RestoreWindow()
-
-    @contextmanager
-    def drawing(self):
-        self.begin_drawing()
-        try:
-            yield
-        finally:
-            self.end_drawing()
 
     @property
     def should_close(self) -> bint:
