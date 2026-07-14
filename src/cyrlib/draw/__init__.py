@@ -5,5 +5,6 @@ from .draw import (
     cycle,
     end,
     fps,
-    fps_flat,
+    fps_vec,
+    texture,
 )

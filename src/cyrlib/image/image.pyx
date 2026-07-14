@@ -24,7 +24,6 @@ from cyrlib.raylib.raylib cimport (
 from cyrlib.color.color cimport Color
 
 cdef class Image:
-    cdef image_t _raw
 
     @staticmethod
     cdef inline Image new(image_t rl_image):

@@ -9,3 +9,4 @@ build
 *.egg-info
 nv_tests
 *.xml
+*.json
