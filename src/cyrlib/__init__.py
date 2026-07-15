@@ -1,9 +1,17 @@
-from . import cursor, draw
+from . import cursor, draw, key
 from .color import Color
 from .colors import colors
 from .core import Window
-from .enums import TextureFilter, TextureWrap, WindowFlags
+from .enums import (
+    KeyboardKey,
+    MouseButton,
+    MouseCursor,
+    TextureFilter,
+    TextureWrap,
+    WindowFlags,
+)
 from .image import Image
+from .mouse import mouse
 from .rect import Rect
 from .render_texture import RenderTexture
 from .texture import Texture

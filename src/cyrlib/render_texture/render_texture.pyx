@@ -12,11 +12,13 @@ cdef class RenderTexture:
         cdef RenderTexture rt = RenderTexture()
         rt._raw = LoadRenderTexture(width, height)
         rt._texture = Texture.new(rt._raw.texture)
+        rt._depth = Texture.new(rt._raw.depth)
         return rt
 
     def __init__(self, int width, int height):
         self._raw = LoadRenderTexture(width, height)
         self._texture = Texture.new(self._raw.texture)
+        self._depth = Texture.new(self._raw.depth)
 
     def __enter__(self):
         BeginTextureMode(self._raw)
@@ -49,3 +51,11 @@ cdef class RenderTexture:
     @property
     def texture(self) -> Texture:
         return self._texture
+
+    @property
+    def depth(self) -> Texture:
+        return self._depth
+
+    @property
+    def id(self) -> int:
+        return self._raw.id

@@ -68,3 +68,23 @@ cdef class Texture:
     def wrap(self, int value):
         self._wrap = value
         SetTextureWrap(self._raw, value)
+
+    @property
+    def id(self) -> int:
+        return self._raw.id
+
+    @property
+    def width(self) -> int:
+        return self._raw.width
+
+    @property
+    def height(self) -> int:
+        return self._raw.height
+
+    @property
+    def mipmaps(self) -> int:
+        return self._raw.mipmaps
+
+    @property
+    def format(self) -> int:
+        return self._raw.format

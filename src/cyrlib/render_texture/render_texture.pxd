@@ -3,7 +3,7 @@ from cyrlib.texture.texture cimport Texture
 
 cdef class RenderTexture:
     cdef r_texture_t _raw
-    cdef Texture _texture
+    cdef Texture _texture, _depth
 
     @staticmethod
     cdef RenderTexture new(int width, int height)
