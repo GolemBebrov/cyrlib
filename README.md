@@ -13,6 +13,10 @@ V - **done**<br>X - **not done**<br>% - **partially done**
 - Vector2/3/4: **95%**
 - Cursor manipulation: **V**
 - Window: **90%**
+- Audio(AudioDevice): **V**
+- Sound: **95%**
+- Music: **90%**
+- AudioStream: **90%**
 - Image: **70%**
 - Texture: **70%**
 - RenderTexture: **80%**
@@ -31,7 +35,7 @@ V - **done**<br>X - **not done**<br>% - **partially done**
 - `cython`
 
 **requirements**:
-- Python 3.12+
+- Only Python 3.12+
 
 to install via pip run
 ```bash
