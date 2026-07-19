@@ -8,9 +8,6 @@ from cyrlib.vector4.vector4 import Vector4
 
 @cython.final
 class Rect:
-    position: Vector2
-    size: Vector2
-
     def __init__(self, *args): ...
     @property
     def x(self): ...

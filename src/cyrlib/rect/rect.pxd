@@ -1,14 +1,15 @@
 cimport cython
+
+from cyrlib.raylib.raylib cimport Rectangle
+
 from cyrlib.vector2.vector2 cimport Vector2
 from cyrlib.vector4.vector4 cimport Vector4
 
 @cython.final
 cdef class Rect:
-    cdef public Vector2 position
-    cdef public Vector2 size
-
+    cdef Rectangle _raw
     @staticmethod
-    cdef inline Rect new(Vector2 position, Vector2 size)
+    cdef inline Rect new(Rectangle rect)
 
     cpdef get_width(self)
     cpdef get_height(self)
