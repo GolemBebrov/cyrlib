@@ -1,3 +1,4 @@
+# cython: auto_pickle=False
 from cyrlib.color.color cimport Color
 
 cdef class Colors:
