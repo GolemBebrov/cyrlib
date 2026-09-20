@@ -24,15 +24,15 @@ from cyrlib.raylib.raylib cimport (
 from cyrlib.color.color cimport Color
 
 cdef class Image:
-
     @staticmethod
-    cdef inline Image new(image_t rl_image):
+    cdef inline Image new(image_t rl_image, bint is_owner=True):
         cdef Image image = Image.__new__(Image)
         image._raw = rl_image
+        image.is_owner = is_owner
         return image
 
     def __dealloc__(self):
-        if self.valid:
+        if self.is_owner and self.valid:
             UnloadImage(self._raw)
 
     def __copy__(self):
@@ -50,28 +50,28 @@ cdef class Image:
     cdef inline Image c_load(str file_name):
         cdef bytes file_name_bytes = file_name.encode("utf-8")
         cdef image_t rl_image = LoadImage(file_name_bytes)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     cdef inline Image c_load_raw(str file_name, int width, int height, int format, int header_size):
         cdef bytes file_name_bytes = file_name.encode("utf-8")
         cdef image_t rl_image = LoadImageRaw(file_name_bytes, width, height, format, header_size)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     cdef inline Image c_load_anim(str file_name, int * frames):
         cdef bytes file_name_bytes = file_name.encode("utf-8")
         cdef image_t rl_image = LoadImageAnim(file_name_bytes, frames)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     cdef inline Image c_load_from_screen():
         cdef image_t rl_image = LoadImageFromScreen()
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     cdef inline Image c_copy(self):
         cdef image_t copied_image = ImageCopy(self._raw)
-        return Image.new(copied_image)
+        return Image.new(copied_image, is_owner=True)
 
     cpdef bint export(self, str file_name):
         cdef bytes file_name_bytes = file_name.encode("utf-8")
@@ -105,51 +105,51 @@ cdef class Image:
     @staticmethod
     def generate_with_color(int width, int height, Color color) -> Image:
         cdef image_t rl_image = GenImageColor(width, height, color._raw)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     def generate_with_linear_gradient(int width, int height, int direction, Color start, Color end) -> Image:
         cdef image_t rl_image = GenImageGradientLinear(width, height, direction, start._raw, end._raw)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     def generate_with_radial_gradient(int width, int height, double density, Color inner, Color outer) -> Image:
         cdef image_t rl_image = GenImageGradientRadial(width, height, density, inner._raw, outer._raw)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     def generate_with_square_gradient(int width, int height, double density, Color inner, Color outer) -> Image:
         cdef image_t rl_image = GenImageGradientSquare(width, height, density, inner._raw, outer._raw)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     def generate_with_checked(int width, int height, int check_x, int check_y, Color col1, Color col2) -> Image:
         cdef image_t rl_image = GenImageChecked(width, height, check_x, check_y, col1._raw, col2._raw)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     def generate_with_white_noise(int width, int height, double factor) -> Image:
         cdef image_t rl_image = GenImageWhiteNoise(width, height, factor)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     def generate_with_perlin_noise(int width, int height, int offset_x, int offset_y, double scale) -> Image:
         cdef image_t rl_image = GenImagePerlinNoise(width, height, offset_x, offset_y, scale)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     def generate_with_cellular(int width, int height, int tile_size) -> Image:
         cdef image_t rl_image = GenImageCellular(width, height, tile_size)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     @staticmethod
     def generate_with_text(int width, int height, str text) -> Image:
         cdef bytes text_bytes = text.encode("utf-8")
         cdef image_t rl_image = GenImageText(width, height, text_bytes)
-        return Image.new(rl_image)
+        return Image.new(rl_image, is_owner=True)
 
     cpdef Image from_channel(self, int selected_channel):
-        return Image.new(ImageFromChannel(self._raw, selected_channel))
+        return Image.new(ImageFromChannel(self._raw, selected_channel), is_owner=True)
 
     @property
     def valid(self) -> bool:
