@@ -7,5 +7,10 @@ from .draw import (
     fps,
     fps_vec,
     texture,
-    texture_vec
+    texture_vec,
+    text,
+    text_ex,
+    texture_pro,
+    texture_ex,
+    texture_rec
 )

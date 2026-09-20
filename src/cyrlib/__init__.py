@@ -23,3 +23,5 @@ from .vector3 import Vector3
 from .vector4 import Vector4
 from .sound import Sound
 from .audio_stream import AudioStream
+from .glyph_info import GlyphInfo
+from .font import Font
