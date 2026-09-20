@@ -34,12 +34,14 @@ cdef class Rect:
             arg_1 = args[1]
             if isinstance(arg_0, Vector2):
                 self._raw = Rectangle(arg_0.x, arg_0.y, arg_1.x, arg_1.y)
+                return
             elif isinstance(arg_0, (list, tuple)) and len(arg_0) == 2:
                 self._raw = Rectangle(arg_0[0], arg_0[1], arg_1[0], arg_1[1])
             else:
                 raise ValueError("First argument must be a Vector2 or list/tuple of length 2")
             if isinstance(arg_1, Vector2):
                 self._raw = Rectangle(0, 0, arg_1.x, arg_1.y)
+                return
             elif isinstance(arg_1, (list, tuple)) and len(arg_1) == 2:
                 self._raw = Rectangle(0, 0, arg_1[0], arg_1[1])
             else:

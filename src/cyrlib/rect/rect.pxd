@@ -13,7 +13,6 @@ cdef inline Rectangle rectangle_new(float x, float y, float width, float height)
     rect.height = height
     return rect
 
-@cython.final
 cdef class Rect:
     cdef Rectangle _raw
     @staticmethod

@@ -6,7 +6,6 @@ from cyrlib.vector2.vector2 import Vector2
 from cyrlib.vector4.vector4 import Vector4
 
 
-@cython.final
 class Rect:
     def __init__(self, *args): ...
     @property
