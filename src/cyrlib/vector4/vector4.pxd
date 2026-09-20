@@ -118,7 +118,6 @@ cdef class Vector4:
     cdef inline void _isub(self, Vector4 other) nogil
     cdef inline void _imul(self, Vector4 other) nogil
     cdef inline void _sadd(self, Vector4 new_vec, Vector4 old_vec) nogil
-
     cpdef void sadd(self, Vector4 new_vec, Vector4 old_vec)
     cpdef tuple get_tuple(self)
     cdef inline tuple c_get_tuple(self)
@@ -136,3 +135,7 @@ cdef class Vector4:
     cpdef double distance_to(self, Vector4 other)
     cpdef double distance_squared_to(self, Vector4 other)
     cpdef double dot(self, Vector4 other)
+
+cdef inline Vector4 vec4_from_struct(vector4_t struct):
+    cdef Vector4 vec = Vector4.new(struct.x, struct.y, struct.z, struct.w)
+    return vec

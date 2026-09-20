@@ -2,10 +2,14 @@
 
 import cython
 
+from cyrlib.raylib.raylib import Vector2 as vector2_t
+
 
 @cython.freelist(1000)
 @cython.final
 class Vector2:
+    data: vector2_t
+
     @property
     def x(self): ...
     @x.setter

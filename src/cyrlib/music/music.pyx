@@ -37,7 +37,7 @@ cdef class Music:
     cdef inline Music new(music_t struct):
         music = Music()
         music.raw = struct
-        music.stream = AudioStream.cfrom_struct(music.raw.stream)
+        music.stream = AudioStream.cfrom_struct(music.raw.stream, is_owner=False)
         music._volume = 1.0
         music._pitch = 1.0
         music._pan = 0.0

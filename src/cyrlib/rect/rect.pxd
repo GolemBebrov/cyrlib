@@ -5,6 +5,14 @@ from cyrlib.raylib.raylib cimport Rectangle
 from cyrlib.vector2.vector2 cimport Vector2
 from cyrlib.vector4.vector4 cimport Vector4
 
+cdef inline Rectangle rectangle_new(float x, float y, float width, float height):
+    cdef Rectangle rect
+    rect.x = x
+    rect.y = y
+    rect.width = width
+    rect.height = height
+    return rect
+
 @cython.final
 cdef class Rect:
     cdef Rectangle _raw

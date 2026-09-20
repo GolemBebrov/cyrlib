@@ -72,7 +72,7 @@ cdef inline double vector2_dot(vector2_t a, vector2_t b) noexcept nogil:
 
 @cython.final
 cdef class Vector2:
-    cdef vector2_t data
+    cdef public vector2_t data
 
     @staticmethod
     cdef inline Vector2 new(double x, double y)

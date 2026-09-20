@@ -13,25 +13,26 @@ from cyrlib.enums import TextureFilter, TextureWrap
 cdef class Texture:
 
     @staticmethod
-    cdef inline Texture new(texture_t struct):
+    cdef inline Texture new(texture_t struct, bint is_owner=True):
         cdef Texture texture = Texture.__new__(Texture)
         texture._raw = struct
         texture._filter = TextureFilter.Bilinear
         texture._wrap = TextureWrap.Repeat
+        texture._is_owner = is_owner
         return texture
 
     def __dealloc__(self):
-        if self.valid:
+        if self._is_owner and self.valid:
             self.c_unload()
 
     @staticmethod
     cdef inline Texture c_load(str file_name):
         cdef bytes file_name_bytes = file_name.encode("utf-8")
-        return Texture.new(LoadTexture(file_name))
+        return Texture.new(LoadTexture(file_name_bytes), is_owner=True)
 
     @staticmethod
     cdef inline Texture c_load_from_image(Image image):
-        return Texture.new(LoadTextureFromImage(image._raw))
+        return Texture.new(LoadTextureFromImage(image._raw), is_owner=True)
 
     cdef inline void c_unload(self):
         UnloadTexture(self._raw)

@@ -9,16 +9,16 @@ from cyrlib.texture.texture cimport Texture
 cdef class RenderTexture:
     @staticmethod
     cdef RenderTexture new(int width, int height):
-        cdef RenderTexture rt = RenderTexture()
+        cdef RenderTexture rt = RenderTexture.__new__(RenderTexture)
         rt._raw = LoadRenderTexture(width, height)
-        rt._texture = Texture.new(rt._raw.texture)
-        rt._depth = Texture.new(rt._raw.depth)
+        rt._texture = Texture.new(rt._raw.texture, is_owner=False)
+        rt._depth = Texture.new(rt._raw.depth, is_owner=False)
         return rt
 
     def __init__(self, int width, int height):
         self._raw = LoadRenderTexture(width, height)
-        self._texture = Texture.new(self._raw.texture)
-        self._depth = Texture.new(self._raw.depth)
+        self._texture = Texture.new(self._raw.texture, is_owner=False)
+        self._depth = Texture.new(self._raw.depth, is_owner=False)
 
     def __enter__(self):
         BeginTextureMode(self._raw)
