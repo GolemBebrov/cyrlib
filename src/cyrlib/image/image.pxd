@@ -2,9 +2,10 @@ from cyrlib.raylib.raylib cimport Image as image_t
 
 cdef class Image:
     cdef image_t _raw
+    cdef bint is_owner
 
     @staticmethod
-    cdef Image new(image_t rl_image)
+    cdef Image new(image_t rl_image, bint is_owner=*)
 
     @staticmethod
     cdef Image c_load(str file_name)
