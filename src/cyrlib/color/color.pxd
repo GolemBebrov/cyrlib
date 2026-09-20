@@ -6,6 +6,11 @@ cdef inline unsigned char __clamp_byte(int val) noexcept:
     if val > 255: return <unsigned char>255
     return <unsigned char>val
 
+cdef inline float __clamp_float(float val) noexcept:
+    if val < 0.0: return 0.0
+    if val > 1.0: return 1.0
+    return val
+
 cdef inline RlColor color_new(int r, int g, int b, int a):
     cdef RlColor color
     color.r = __clamp_byte(r)
@@ -29,3 +34,5 @@ cdef class Color:
     cdef inline bint c_equal(self, Color other)
     cdef inline Vector4 c_normalize(self)
     cdef inline Color c_tint(self, Color tint)
+    cpdef void fade(self, float alpha)
+    cpdef int to_int(self)

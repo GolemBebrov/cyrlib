@@ -1,4 +1,4 @@
-from cyrlib.raylib.raylib cimport Color as RlColor, ColorIsEqual, ColorNormalize, ColorTint
+from cyrlib.raylib.raylib cimport Color as RlColor, ColorIsEqual, ColorNormalize, ColorTint, ColorToInt
 from cyrlib.vector4.vector4 cimport Vector4,vec4_from_struct
 cdef class Color:
     def __init__(self, int r, int g, int b, int a = 255):
@@ -46,6 +46,12 @@ cdef class Color:
 
     def equal(self, Color other) -> bool:
         return self.c_equal(other)
+
+    cpdef void fade(self, float alpha):
+        self._raw.a = <unsigned char>(__clamp_float(alpha) * 255)
+    
+    cpdef int to_int(self):
+        return ColorToInt(self._raw) 
 
     #Short
     @property
