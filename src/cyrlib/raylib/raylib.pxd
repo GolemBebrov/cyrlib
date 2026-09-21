@@ -963,9 +963,6 @@ cdef extern from "raylib.h" nogil:
     #Info: Draw a color-filled triangle, counter-clockwise vertex order
     void DrawTriangle(Vector2 v1, Vector2 v2, Vector2 v3, Color color)
 
-    #Info: Draw triangle with interpolated colors, counter-clockwise vertex/color order
-    void DrawTriangleGradient(Vector2 v1, Vector2 v2, Vector2 v3, Color c1, Color c2, Color c3)
-
     #Info: Draw triangle outline, counter-clockwise vertex order
     void DrawTriangleLines(Vector2 v1, Vector2 v2, Vector2 v3, Color color)
 
