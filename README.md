@@ -1,14 +1,18 @@
 <h1 align="center"><b>CyRLib</b></h1>
 
-#### Cyrlib is new cython-accelerated raylib bindings with **pythonic API**!
-#### **Current status**: Very **WIP** alpha
+#### Cyrlib is raylib bindings for python!
+#### **Current status**: WIP
 
-### Unique features:
+### Features:
 - **With support**<br>`with draw.cycle:` | `with render_texture:`
 - **Pythonic API**<br>`window.width` | `texture.wrap = TextureWrap.MirrorClamp`
 - **Speed**<br>`Cyrlib` approximately 20% faster than `pyray`
 
-### TODO list:
+### Example code:
+```python
+
+```
+### What's done:
 V - **done**<br>X - **not done**<br>% - **partially done**
 - Vector2/3/4: **95%**
 - Cursor manipulation: **V**
@@ -22,7 +26,7 @@ V - **done**<br>X - **not done**<br>% - **partially done**
 - RenderTexture: **80%**
 - Enums: **15%**
 - Clipboard: **85%**
-- Draw funcs: **5%**
+- Draw functions: **60%**
 - Color: **20%**
 - Shader: **X**
 - Camera2D/Camera3D: **X**
