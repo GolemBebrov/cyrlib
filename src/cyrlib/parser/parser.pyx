@@ -51,7 +51,7 @@ cdef inline RlColor parse_color_like(object color) except *:
     if type(color) is list:
         color_len = len(<list>color)
         if not (2 < color_len < 5):
-            raise ValueError("tuple for color-like argument must have only 3-4 elements.")
+            raise ValueError("list for color-like argument must have only 3-4 elements.")
         if color_len == 4:
             return color_new(<int>(<list>color)[0], <int>(<list>color)[1], <int>(<list>color)[2], <int>(<list>color)[3])
         else:
